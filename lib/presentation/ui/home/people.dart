@@ -16,7 +16,7 @@ class PeopleList extends StatelessWidget {
       shrinkWrap: true,
       itemCount: people.length,
       itemBuilder: (context, index) {
-        return PersonCard(person: people[index]);
+        return PersonCard(person: people[index], index: index,);
       },
     );
   }

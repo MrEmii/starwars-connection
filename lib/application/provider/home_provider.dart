@@ -11,9 +11,12 @@ class HomeProvider extends ChangeNotifier {
   List<Person> get people => _people;
 
   Future<void> fetchPeople() async {
+    int count = (people.length + 10).clamp(people.length, lastPeople?.count ?? 10);
+    _people.addAll(List.generate(count, (index) => Person.placeholder()));
+    notify();
     lastPeople = await GetIt.I<PeopleRepositoryImpl>().getPeople(url: lastPeople?.next ?? "https://swapi.dev/api/people");
-    _people.addAll(lastPeople?.results ?? []);
-    notifyListeners();
+    _people.replaceRange(_people.length - count, _people.length, lastPeople?.results ?? []);
+    notify();
   }
 
   void notify() {

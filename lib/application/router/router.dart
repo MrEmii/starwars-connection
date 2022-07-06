@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:starwars_connection/application/provider/detail_provider.dart';
+import 'package:starwars_connection/core/models/person_model.dart';
 import 'package:starwars_connection/presentation/screens/detail.dart';
 import 'package:starwars_connection/presentation/screens/home.dart';
 import 'package:starwars_connection/presentation/screens/menu.dart';
@@ -26,9 +29,12 @@ class AppRoutes {
           path: 'detail/:id',
           name: 'detail',
           builder: (context, state) {
-            final id = state.params['id'];
-            //TODO: get detail from api
-            return const DetailScreen();
+            final String id = state.params['id'] as String;
+            final int index = int.tryParse(id) ?? 0;
+            Person person = context.read<DetailProvider>().setPerson(index);
+            return DetailScreen(
+              person: person,
+            );
           },
         ),
         GoRoute(

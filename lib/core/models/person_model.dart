@@ -30,6 +30,8 @@ class Person extends Equatable {
     required this.starships,
   });
 
+  factory Person.placeholder() => const Person(name: "", height: "", mass: "", hair: "", skin: "", eye: "", birthYear: "", gender: "", homeworld: "", vehicles: [], starships: []);
+
   Person copyWith({
     String? name,
     String? height,

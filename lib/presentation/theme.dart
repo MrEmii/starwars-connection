@@ -10,5 +10,10 @@ class AppTheme {
       color: primaryColor,
       circularTrackColor: secondaryColor
     ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.transparent,
+      foregroundColor: secondaryColor,
+      elevation: 0,
+    )
   );
 }

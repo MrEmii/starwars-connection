@@ -1,13 +1,15 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:starwars_connection/core/models/person_model.dart';
-import 'package:starwars_connection/presentation/theme.dart';
+import 'package:starwars_connection/presentation/ui/skeleton.dart';
 
 class PersonCard extends StatelessWidget {
+  final int index;
   final Person person;
 
-  const PersonCard({super.key, required this.person});
+  const PersonCard({super.key, required this.person, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,8 @@ class PersonCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
-        child: GestureDetector(
+        child: person.name.isEmpty ? const Skeleton() : GestureDetector(
+          onTap: (() => context.push("/detail/$index")),
           child: Container(
             height: 100,
             decoration: const BoxDecoration(
@@ -28,11 +31,19 @@ class PersonCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.black.withOpacity(0.5),
                 ),
-                child: Center(
-                  child: Text(
-                    person.name,
-                    style: textTheme.headline6?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      person.name,
+                      style: textTheme.headline5?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      person.gender,
+                      style: textTheme.headline6?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
               ),
             ),

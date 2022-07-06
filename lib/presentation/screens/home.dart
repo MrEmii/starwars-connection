@@ -42,7 +42,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       extendBody: true,
       body: ScrollConfiguration(
@@ -53,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: const [
             HomeOptions(),
             HomeTitle(title: "Personajes avistado"),
-            //TODO: XD
+            //TODO: Add people list
             HomeTitle(title: "Personajes de StarWars"),
             PeopleList()
           ],

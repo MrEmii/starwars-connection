@@ -2,14 +2,14 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
-class Startship extends Equatable {
+class Starship extends Equatable {
   final String name;
   final String model;
   final String manufacturer;
   final String type;
   final String url;
 
-  const Startship({
+  const Starship({
     required this.name,
     required this.model,
     required this.manufacturer,
@@ -17,14 +17,14 @@ class Startship extends Equatable {
     required this.url,
   });
 
-  Startship copyWith({
+  Starship copyWith({
     String? name,
     String? model,
     String? manufacturer,
     String? type,
     String? url,
   }) {
-    return Startship(
+    return Starship(
       name: name ?? this.name,
       model: model ?? this.model,
       manufacturer: manufacturer ?? this.manufacturer,
@@ -43,8 +43,8 @@ class Startship extends Equatable {
     };
   }
 
-  factory Startship.fromMap(Map<String, dynamic> map) {
-    return Startship(
+  factory Starship.fromMap(Map<String, dynamic> map) {
+    return Starship(
       name: map['name'] as String,
       model: map['model'] as String,
       manufacturer: map['manufacturer'] as String,
@@ -55,7 +55,7 @@ class Startship extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  factory Startship.fromJson(String source) => Startship.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Starship.fromJson(String source) => Starship.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -66,7 +66,7 @@ class Startship extends Equatable {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Startship && other.name == name && other.model == model && other.manufacturer == manufacturer && other.type == type;
+    return other is Starship && other.name == name && other.model == model && other.manufacturer == manufacturer && other.type == type;
   }
 
   @override
