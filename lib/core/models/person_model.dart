@@ -3,9 +3,6 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
-import 'package:starwars_connection/core/models/starship_model.dart';
-import 'package:starwars_connection/core/models/vehicle_model.dart';
-
 class People extends Equatable {
   final String name;
   final String height;
@@ -99,7 +96,7 @@ class People extends Equatable {
 
   @override
   String toString() {
-    return 'People(name: $name, height: $height, mass: $mass, hair: $hair, skin: $skin, eye: $eye, birthYear: $birthYear, gender: $gender, homeworld: $homeworld, vehicles: $vehicles, starships: $starships)';
+    return 'Person(name: $name, height: $height, mass: $mass, hair: $hair, skin: $skin, eye: $eye, birthYear: $birthYear, gender: $gender, homeworld: $homeworld, vehicles: $vehicles, starships: $starships)';
   }
 
   @override

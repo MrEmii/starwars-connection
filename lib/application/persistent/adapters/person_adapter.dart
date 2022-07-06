@@ -1,10 +1,10 @@
 import 'package:hive/hive.dart';
+import 'package:starwars_connection/core/models/person_sighted_model.dart';
 
-class PersonAdapter extends TypeAdapter {
+class PersonAdapter extends TypeAdapter<PersonSighted> {
   @override
-  read(BinaryReader reader) {
-    // TODO: implement read
-    throw UnimplementedError();
+  PersonSighted read(BinaryReader reader) {
+    return PersonSighted.fromJson(reader.read());
   }
 
   @override
@@ -15,7 +15,7 @@ class PersonAdapter extends TypeAdapter {
 
   @override
   void write(BinaryWriter writer, obj) {
-    // TODO: implement write
+    writer.write(obj.toJson());
   }
 
   @override

@@ -7,12 +7,14 @@ class Vehicle extends Equatable {
   final String model;
   final String manufacturer;
   final String type;
+  final String url;
 
   const Vehicle({
     required this.name,
     required this.model,
     required this.manufacturer,
     required this.type,
+    required this.url,
   });
 
   Vehicle copyWith({
@@ -20,12 +22,14 @@ class Vehicle extends Equatable {
     String? model,
     String? manufacturer,
     String? type,
+    String? url,
   }) {
     return Vehicle(
       name: name ?? this.name,
       model: model ?? this.model,
       manufacturer: manufacturer ?? this.manufacturer,
       type: type ?? this.type,
+      url: url ?? this.url,
     );
   }
 
@@ -35,6 +39,7 @@ class Vehicle extends Equatable {
       'model': model,
       'manufacturer': manufacturer,
       'vehicle_class': type,
+      'url': url,
     };
   }
 
@@ -44,6 +49,7 @@ class Vehicle extends Equatable {
       model: map['model'] as String,
       manufacturer: map['manufacturer'] as String,
       type: map['vehicle_class'] as String,
+      url: map['url'] as String,
     );
   }
 

@@ -1,18 +1,10 @@
-abstract class DTO<T> {
+abstract class ResponseDTO {
   final int status;
   final String message;
 
-  int? count;
-  String? next;
-  String? previous;
-  T? results;
+  ResponseDTO(this.status, this.message);
+}
 
-  DTO(
-    this.status,
-    this.message, {
-    this.count,
-    this.next,
-    this.previous,
-    this.results,
-  });
+abstract class RequestDTO {
+  Map<String, dynamic> toMap();
 }
