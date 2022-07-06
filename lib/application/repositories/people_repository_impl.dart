@@ -10,7 +10,7 @@ class PeopleRepositoryImpl extends PeopleRepository {
 
   @override
   Future<PeopleDTO> getPeople({required String url}) async {
-    http.Response? response = await consumer.get(url: "$url&format=json");
+    http.Response? response = await consumer.get(url: url);
 
     if (response == null) {
       return PeopleDTO(500, "Error interno.");
@@ -26,7 +26,7 @@ class PeopleRepositoryImpl extends PeopleRepository {
       count: decodedResponse["count"],
       next: decodedResponse["next"],
       previous: decodedResponse["previous"],
-      results: decodedResponse["results"].map<People>((result) => People.fromMap(result)).toList(),
+      results: decodedResponse["results"].map<Person>((result) => Person.fromMap(result)).toList(),
     );
   }
 

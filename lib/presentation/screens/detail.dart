@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:starwars_connection/presentation/theme.dart';
 
 
 class DetailScreen extends StatelessWidget {
@@ -8,9 +9,12 @@ class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('Hola Mundo'),
-     ),
+      backgroundColor: AppTheme.secondaryColor,
+      body: ListView(
+        children: [
+
+        ],
+      )
    );
   }
 }

@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     _homeProvider = context.read<HomeProvider>();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await _homeProvider.fetchPeoples();
+      await _homeProvider.fetchPeople();
       setState(() {
         _isLoading = false;
       });

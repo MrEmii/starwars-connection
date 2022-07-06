@@ -1,4 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:starwars_connection/application/provider/home_provider.dart';
+import 'package:starwars_connection/presentation/theme.dart';
+import 'package:starwars_connection/presentation/ui/home/option.dart';
+import 'package:starwars_connection/presentation/ui/home/people.dart';
+import 'package:starwars_connection/presentation/ui/home/title.dart';
+import 'package:starwars_connection/presentation/ui/noglow.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -8,17 +17,46 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  void _onScroll() async {
+    final provider = Provider.of<HomeProvider>(context, listen: false);
+
+    if (provider.lastPeople != null && provider.lastPeople!.count! > provider.people.length && _scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+      await provider.fetchPeople();
+      if (mounted) provider.notify();
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      body: Center(
-        child: ListView.builder(
-          itemCount: _peoples.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(_peoples[index].name),
-            );
-          },
+      extendBody: true,
+      body: ScrollConfiguration(
+        behavior: const NoGlowBehaviour(),
+        child: ListView(
+          controller: _scrollController,
+          physics: const AlwaysScrollableScrollPhysics(),
+          children: const [
+            HomeOptions(),
+            HomeTitle(title: "Personajes avistado"),
+            //TODO: XD
+            HomeTitle(title: "Personajes de StarWars"),
+            PeopleList()
+          ],
         ),
       ),
     );

@@ -5,6 +5,6 @@ class PeopleDTO extends ResponseDTO {
   int? count;
   String? next;
   String? previous;
-  List<People>? results;
+  List<Person>? results;
   PeopleDTO(super.status, super.message, {this.count, this.next, this.previous, this.results});
 }

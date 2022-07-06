@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
-class People extends Equatable {
+class Person extends Equatable {
   final String name;
   final String height;
   final String mass;
@@ -16,7 +16,7 @@ class People extends Equatable {
   final List<String> vehicles;
   final List<String> starships;
 
-  const People({
+  const Person({
     required this.name,
     required this.height,
     required this.mass,
@@ -30,7 +30,7 @@ class People extends Equatable {
     required this.starships,
   });
 
-  People copyWith({
+  Person copyWith({
     String? name,
     String? height,
     String? mass,
@@ -43,7 +43,7 @@ class People extends Equatable {
     List<String>? vehicles,
     List<String>? starships,
   }) {
-    return People(
+    return Person(
       name: name ?? this.name,
       height: height ?? this.height,
       mass: mass ?? this.mass,
@@ -74,8 +74,8 @@ class People extends Equatable {
     };
   }
 
-  factory People.fromMap(Map<String, dynamic> map) {
-    return People(
+  factory Person.fromMap(Map<String, dynamic> map) {
+    return Person(
       name: map['name'] as String,
       height: map['height'] as String,
       mass: map['mass'] as String,
@@ -92,7 +92,7 @@ class People extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  factory People.fromJson(String source) => People.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Person.fromJson(String source) => Person.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -103,7 +103,7 @@ class People extends Equatable {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is People && other.name == name && other.height == height && other.mass == mass && other.hair == hair && other.skin == skin && other.eye == eye && other.birthYear == birthYear && other.gender == gender && other.homeworld == homeworld && listEquals(other.vehicles, vehicles) && listEquals(other.starships, starships);
+    return other is Person && other.name == name && other.height == height && other.mass == mass && other.hair == hair && other.skin == skin && other.eye == eye && other.birthYear == birthYear && other.gender == gender && other.homeworld == homeworld && listEquals(other.vehicles, vehicles) && listEquals(other.starships, starships);
   }
 
   @override
