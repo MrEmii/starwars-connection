@@ -23,7 +23,7 @@ class PersonCard extends StatelessWidget {
           child: Container(
             height: 100,
             decoration: const BoxDecoration(
-              image: DecorationImage(image: AssetImage("assets/images/space.jpg"), fit: BoxFit.cover),
+              image: DecorationImage(image: ResizeImage(AssetImage("assets/images/space.jpg"), width: 183, height: 78), fit: BoxFit.cover),
             ),
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),

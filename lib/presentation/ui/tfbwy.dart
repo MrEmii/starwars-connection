@@ -31,7 +31,7 @@ class _TheForceBeWithYouState extends State<TheForceBeWithYou> with SingleTicker
         builder: (context, child) {
           return Opacity(
             opacity: _animation.value,
-            child: Text("Que la fuerza te acompañe", softWrap: true, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline4),
+            child: const Text("Que la fuerza te acompañe", softWrap: true, textAlign: TextAlign.center, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
           );
         },
       ),

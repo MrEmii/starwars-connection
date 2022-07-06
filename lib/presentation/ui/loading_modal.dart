@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
-
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 
@@ -81,7 +79,7 @@ class _LoadingModalState extends State<LoadingModal> with SingleTickerProviderSt
                         top: (size.height / 3) * (_controller.value),
                         child: const Center(
                           child: Image(
-                            image: AssetImage('assets/images/starwars.png'),
+                            image: ResizeImage(AssetImage("assets/images/starwars.png"), width: 611, height: 262),
                             height: 100,
                           ),
                         )),

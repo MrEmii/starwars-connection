@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:starwars_connection/application/persistent/adapters/person_adapter.dart';
 import 'package:starwars_connection/core/abstracts/entity.dart';
@@ -11,75 +12,92 @@ class HiveDB extends PersistentRepository {
   static final db = HiveDB._();
 
   final String _peoplePath = "people_collection";
-  late Box<PersonShigted>? _peopleBox;
+  Box<PersonSighted>? peopleBox;
 
   final String _userPath = "user_collection";
-  late Box<dynamic>? _userBox;
+  Box<dynamic>? userBox;
 
-  Future<List<PersonShigted>> get _people async {
-    if (_peopleBox == null || !Hive.isBoxOpen(_peoplePath)) {
-      return (await _deployPeople()).values.toList();
+  ValueListenable<Box<PersonSighted>> get peopleBoxListener => peopleBox!.listenable();
+
+  Future<List<PersonSighted>> get _people async {
+    if (peopleBox == null || !Hive.isBoxOpen(_peoplePath)) {
+      peopleBox = (await _deployPeople());
+
+      return peopleBox?.values.toList() ?? [];
     }
-    return _peopleBox!.values.toList();
+    return peopleBox!.values.toList();
   }
 
   Future<User> get user async {
-    User? user;
-    if (_userBox == null || !Hive.isBoxOpen(_userPath)) {
-      user = User.fromMap(Map<String, dynamic>.from((await _deployUser()).toMap()));
+    Map<String, dynamic>? data;
+    if (userBox == null || !Hive.isBoxOpen(_userPath)) {
+      data = Map<String, dynamic>.from((await _deployUser()).toMap());
     }
 
-    user ??= User.fromMap(Map<String, dynamic>.from(_userBox!.toMap()));
-    return user;
+    data ??= Map<String, dynamic>.from(userBox!.toMap());
+
+    if (data.isEmpty) {
+      User user = User(id: "1", hasConnection: false);
+      await save(user);
+      return user;
+    }
+
+    return User.fromMap(data);
   }
 
   @override
   Future<void> init() async {
     await Hive.initFlutter();
     Hive.registerAdapter(PersonAdapter());
+    await _deployPeople();
+    await _deployUser();
   }
 
-  Future<Box<PersonShigted>> _deployPeople() async {
-    if (_peopleBox == null || !await Hive.boxExists(_peoplePath) || !Hive.isBoxOpen(_peoplePath)) {
-      return _peopleBox = await Hive.openBox<PersonShigted>(_peoplePath);
+  Future<Box<PersonSighted>> _deployPeople() async {
+    if (peopleBox == null || !await Hive.boxExists(_peoplePath) || !Hive.isBoxOpen(_peoplePath)) {
+      return peopleBox = await Hive.openBox<PersonSighted>(_peoplePath);
     }
 
-    return _peopleBox = Hive.box(_peoplePath);
+    return peopleBox = Hive.box(_peoplePath);
   }
 
   Future<Box<dynamic>> _deployUser() async {
-    if (_userBox == null || !await Hive.boxExists(_userPath) || !Hive.isBoxOpen(_userPath)) {
-      return _userBox = await Hive.openBox<dynamic>(_userPath);
+    if (userBox == null || !await Hive.boxExists(_userPath) || !Hive.isBoxOpen(_userPath)) {
+      return userBox = await Hive.openBox<dynamic>(_userPath);
     }
 
-    return _userBox = Hive.box(_userPath);
+    return userBox = Hive.box(_userPath);
   }
 
   @override
   Future<void> delete(Entity entity) async {
-    if (entity is PersonShigted) {
-      await _peopleBox!.delete(entity.id);
+    if (entity is PersonSighted) {
+      await peopleBox!.delete(entity.id);
     }
   }
 
   @override
   Future<void> deleteAll() async {
-    return _peopleBox?.deleteFromDisk();
+    return peopleBox?.deleteFromDisk();
   }
 
   @override
-  Future<List<Entity>> getAll() async {
-    return _people;
+  Future<List<T>> getAll<T extends Entity>() async {
+    if (T == PersonSighted) {
+      return _people as Future<List<T>>;
+    }
+    return [];
   }
 
   @override
   Future<void> save(Entity entity) async {
-    if (entity is PersonShigted) {
-      return _peopleBox!.put(entity.id, entity);
+    if (entity is PersonSighted) {
+      await peopleBox!.put(entity.id, entity);
+      await peopleBox!.flush();
     }
     if (entity is User) {
       entity.toMap().forEach((key, value) {
-        _userBox!.put(key, value);
+        userBox!.put(key, value);
       });
       return;
     }

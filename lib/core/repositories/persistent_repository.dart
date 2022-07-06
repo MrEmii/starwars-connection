@@ -5,5 +5,5 @@ abstract class PersistentRepository {
   Future<void> save(Entity entity);
   Future<void> delete(Entity entity);
   Future<void> deleteAll();
-  Future<List<Entity>> getAll();
+  Future<List<T>> getAll<T extends Entity>();
 }

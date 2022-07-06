@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:starwars_connection/presentation/theme.dart';
 
 class InfoTextDetail extends StatelessWidget {
   final String leadInfo;
@@ -13,13 +14,13 @@ class InfoTextDetail extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Icon(icon),
-        SizedBox(width: 10),
+        Icon(icon, color: AppTheme.primaryColor),
+        const SizedBox(width: 10),
         Text(
           leadInfo,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Text(info),
       ],
     );

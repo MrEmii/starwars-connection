@@ -3,32 +3,33 @@ import 'dart:convert';
 import 'package:starwars_connection/core/abstracts/entity.dart';
 import 'package:starwars_connection/core/models/person_model.dart';
 
-class PersonShigted extends Entity {
+class PersonSighted extends Entity {
   final DateTime date;
-  final Person? people;
+  final Person? person;
 
-  const PersonShigted({
+  const PersonSighted({
     required super.id,
     required this.date,
-    required this.people,
+    required this.person,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id': id,
       'date': date.millisecondsSinceEpoch,
-      'people': people?.toMap(),
+      'person': person?.toMap(),
     };
   }
 
-  factory PersonShigted.fromMap(Map<String, dynamic> map) {
-    return PersonShigted(
+  factory PersonSighted.fromMap(Map<String, dynamic> map) {
+    return PersonSighted(
       id: map['id'],
       date: DateTime.fromMillisecondsSinceEpoch(map['date'] as int),
-      people: map['people'] != null ? Person.fromMap(map['people'] as Map<String, dynamic>) : null,
+      person: map['person'] != null ? Person.fromMap(map['person'] as Map<String, dynamic>) : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory PersonShigted.fromJson(String source) => PersonShigted.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory PersonSighted.fromJson(String source) => PersonSighted.fromMap(json.decode(source) as Map<String, dynamic>);
 }

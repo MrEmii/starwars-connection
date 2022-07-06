@@ -36,7 +36,7 @@ class _LoadingState extends State<Loading> with SingleTickerProviderStateMixin {
           );
         },
         child: Image(
-          image: const AssetImage("assets/images/starwars.png"),
+          image: const ResizeImage(AssetImage("assets/images/starwars.png"), width: 324, height: 138),
           width: size.width * .3,
         ),
       ),

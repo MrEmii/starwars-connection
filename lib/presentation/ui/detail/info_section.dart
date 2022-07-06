@@ -18,7 +18,7 @@ class InfoSectionDetail extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
-            color: Colors.grey[200],
+            color: Colors.black26,
             border: Border.all(color: Colors.black12, width: 1),
             borderRadius: BorderRadius.circular(8),
           ),

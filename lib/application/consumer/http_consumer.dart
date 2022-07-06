@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:starwars_connection/core/abstracts/consumer.dart';
 import 'package:starwars_connection/core/abstracts/dto.dart';
@@ -21,7 +23,7 @@ class HttpConsumer extends Consumer<http.Response> {
       final Uri uri = Uri.parse(url);
       return await client.post(
         uri,
-        body: dto.toMap(),
+        body: json.encode(dto.toMap()),
         headers: {
           'Content-Type': 'application/json',
         },

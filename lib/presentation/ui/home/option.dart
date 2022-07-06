@@ -12,7 +12,7 @@ class HomeOptions extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset("assets/images/starwars.png", height: 30),
+          Image.asset("assets/images/starwars.png", height: 30, cacheWidth: 183, cacheHeight: 78),
           IconButton(
             onPressed: () => context.push("/menu"),
             icon: const Icon(Icons.settings),

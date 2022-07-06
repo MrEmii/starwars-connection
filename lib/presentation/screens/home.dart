@@ -1,11 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:starwars_connection/application/provider/home_provider.dart';
-import 'package:starwars_connection/presentation/theme.dart';
 import 'package:starwars_connection/presentation/ui/home/option.dart';
 import 'package:starwars_connection/presentation/ui/home/people.dart';
+import 'package:starwars_connection/presentation/ui/home/people_sighted.dart';
 import 'package:starwars_connection/presentation/ui/home/title.dart';
 import 'package:starwars_connection/presentation/ui/noglow.dart';
 
@@ -44,18 +42,27 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      body: ScrollConfiguration(
-        behavior: const NoGlowBehaviour(),
-        child: ListView(
-          controller: _scrollController,
-          physics: const AlwaysScrollableScrollPhysics(),
-          children: const [
-            HomeOptions(),
-            HomeTitle(title: "Personajes avistado"),
-            //TODO: Add people list
-            HomeTitle(title: "Personajes de StarWars"),
-            PeopleList()
-          ],
+      body: RefreshIndicator(
+        onRefresh: () async {
+          final provider = Provider.of<HomeProvider>(context, listen: false);
+          provider.people.clear();
+          provider.lastPeople = null;
+          await provider.fetchPeople();
+          if (mounted) provider.notify();
+        },
+        child: ScrollConfiguration(
+          behavior: const NoGlowBehaviour(),
+          child: ListView(
+            controller: _scrollController,
+            physics: const AlwaysScrollableScrollPhysics(),
+            children: const [
+              HomeOptions(),
+              HomeTitle(title: "Personajes avistados"),
+              PeopleSightedList(),
+              HomeTitle(title: "Personajes de StarWars"),
+              PeopleList()
+            ],
+          ),
         ),
       ),
     );

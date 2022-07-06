@@ -40,7 +40,9 @@ class AppRoutes {
         GoRoute(
           path: "menu",
           name: "menu",
-          builder: (context, state) => const MenuScreen(),
+          builder: (context, state) {
+            return const MenuScreen();
+          },
         )
       ],
     ),
