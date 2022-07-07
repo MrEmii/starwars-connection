@@ -18,6 +18,10 @@ import 'package:starwars_connection/core/models/person_model.dart';
 import 'package:starwars_connection/core/models/planet_model.dart';
 import 'package:starwars_connection/core/models/starship_model.dart';
 import 'package:starwars_connection/core/models/vehicle_model.dart';
+import 'package:starwars_connection/core/repositories/people_repository.dart';
+import 'package:starwars_connection/core/repositories/planet_repository.dart';
+import 'package:starwars_connection/core/repositories/startship_repository.dart';
+import 'package:starwars_connection/core/repositories/vehicle_repository.dart';
 
 class DetailProvider extends ChangeNotifier {
   DetailProvider(this.homeProvider);
@@ -40,7 +44,7 @@ class DetailProvider extends ChangeNotifier {
 
   Future<void> fetchVehicles() async {
     if (person != null) {
-      List<VehicleDTO> dtos = await Future.wait(person!.vehicles.map((vehicle) => GetIt.I<VehicleRepositoryImpl>().getVehicle(url: vehicle)));
+      List<VehicleDTO> dtos = await Future.wait(person!.vehicles.map((vehicle) => GetIt.I<VehicleRepository>().getVehicle(url: vehicle)));
       if (dtos.any((element) => element.status != 200)) {
         errorMessage("No se pudieron cargar algunos vehiculos");
       }
@@ -51,7 +55,7 @@ class DetailProvider extends ChangeNotifier {
 
   Future<void> fetchStarships() async {
     if (person != null) {
-      List<StarshipDTO> dtos = await Future.wait(person!.starships.map((starship) => GetIt.I<StarshipRepositoryImpl>().getStarship(url: starship)));
+      List<StarshipDTO> dtos = await Future.wait(person!.starships.map((starship) => GetIt.I<StarshipRepository>().getStarship(url: starship)));
 
       if (dtos.any((element) => element.status != 200)) {
         errorMessage("No se pudieron cargar algunas naves");
@@ -63,7 +67,7 @@ class DetailProvider extends ChangeNotifier {
 
   Future<void> fetchPlanet() async {
     if (person != null) {
-      PlanetDTO dto = await GetIt.I<PlanetRepositoryImpl>().getPlanet(url: person!.homeworld);
+      PlanetDTO dto = await GetIt.I<PlanetRepository>().getPlanet(url: person!.homeworld);
       if (dto.status != 200) {
         errorMessage("No se pudo cargar el planeta");
         return;
@@ -104,7 +108,7 @@ class DetailProvider extends ChangeNotifier {
         return;
       }
       var postPersonSightedDTO = PostPersonSightedDTO(user.id, DateTime.now(), person!.name);
-      PersonSightedDTO? dto = await GetIt.I<PeopleRepositoryImpl>().postPerson(url: "https://jsonplaceholder.typicode.com/posts", dto: postPersonSightedDTO);
+      PersonSightedDTO? dto = await GetIt.I<PeopleRepository>().postPerson(url: "https://jsonplaceholder.typicode.com/posts", dto: postPersonSightedDTO);
 
       if (dto == null || dto.status != 201) {
         errorMessage(dto?.message ?? "No se pudo reportar");

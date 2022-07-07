@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:starwars_connection/application/repositories/people_repository_impl.dart';
 import 'package:starwars_connection/core/dto/people_dto.dart';
 import 'package:starwars_connection/core/models/person_model.dart';
+import 'package:starwars_connection/core/repositories/people_repository.dart';
 
 class HomeProvider extends ChangeNotifier {
   PeopleDTO? lastPeople;
@@ -15,7 +16,7 @@ class HomeProvider extends ChangeNotifier {
     int count = (people.length + 10).clamp(people.length, lastPeople?.count ?? 10);
     _people.addAll(List.generate(count, (index) => Person.placeholder()));
     notify();
-    lastPeople = await GetIt.I<PeopleRepositoryImpl>().getPeople(url: lastPeople?.next ?? "https://swapi.dev/api/people");
+    lastPeople = await GetIt.I<PeopleRepository>().getPeople(url: lastPeople?.next ?? "https://swapi.dev/api/people");
 
     if (lastPeople?.status != 200) {
       Fluttertoast.showToast(
