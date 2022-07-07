@@ -50,7 +50,9 @@ class _SplashScreenState extends State<SplashScreen> {
                     ),
                   )
                 ]
-              : const [TheForceBeWithYou()],
+              : const [
+                  TheForceBeWithYou(),
+                ],
         ),
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:starwars_connection/application/provider/home_provider.dart';
-import 'package:starwars_connection/presentation/ui/home/option.dart';
 import 'package:starwars_connection/presentation/ui/home/people.dart';
 import 'package:starwars_connection/presentation/ui/home/people_sighted.dart';
 import 'package:starwars_connection/presentation/ui/home/title.dart';
@@ -41,6 +41,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Image.asset("assets/images/starwars.png", height: 30, cacheWidth: 183, cacheHeight: 78),
+        actions: [
+          IconButton(
+            onPressed: () => context.push("/menu"),
+            icon: const Icon(Icons.settings),
+            splashRadius: 15,
+          ),
+        ],
+      ),
       extendBody: true,
       body: RefreshIndicator(
         onRefresh: () async {
@@ -56,11 +66,10 @@ class _HomeScreenState extends State<HomeScreen> {
             controller: _scrollController,
             physics: const AlwaysScrollableScrollPhysics(),
             children: const [
-              HomeOptions(),
               HomeTitle(title: "Personajes avistados"),
               PeopleSightedList(),
               HomeTitle(title: "Personajes de StarWars"),
-              PeopleList()
+              PeopleList(),
             ],
           ),
         ),

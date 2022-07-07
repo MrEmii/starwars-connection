@@ -29,7 +29,7 @@ class PersonCard extends StatelessWidget {
               filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.5),
+                  color: Colors.black.withOpacity(0.2),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
